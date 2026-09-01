@@ -1,0 +1,22 @@
+package com.jt.demo;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component("petrol")
+@Primary
+public class PetrolEngine  implements Engine {
+
+    @Override
+    public void startEngine() {
+        // TODO Auto-generated method stub
+        System.out.println("Petrol Engine Starting");
+    }
+
+    @Override
+    public void stopEngine() {
+        // TODO Auto-generated method stub
+        System.out.println("Petrol Engine Stopping");        
+    }
+    
+}
