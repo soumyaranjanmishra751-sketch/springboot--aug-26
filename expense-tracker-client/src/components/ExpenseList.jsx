@@ -1,14 +1,15 @@
 import axios from 'axios'
+import expenseService from '../services/expenseService';
 //import React, { useEffect, useState } from 'react'
 
-const ExpenseList = ({expenses}) => {
+const ExpenseList = ({expenses, setEditingExpense, getExpenses}) => {
   
 
  
   const handleDelete = async (expenseId) => {
     if(confirm("Are You Sure Want To Delete The Expense")){
     try {
-      const response = await axios.delete('http://localhost:8080/expenses/' + expenseId)
+      const response = await expenseService.deleteExpense(expenseId)
       if(response.status === 204) {
         getExpenses();
       } else {
@@ -20,6 +21,9 @@ const ExpenseList = ({expenses}) => {
   }
 }
 
+function handleEdit(expense){
+  setEditingExpense(expense)
+}
  
   return (
     <div className='bg-white rounded-2xl shadow-md p-6 mb-6'>
@@ -63,7 +67,7 @@ const ExpenseList = ({expenses}) => {
 
                   <td className='px-4 py-3'>
                     <div className='flex gap-2 justify-center'>
-                      <button className='bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs'>Edit</button>
+                      <button onClick={()=> handleEdit(exp)} className='bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs'>Edit</button>
                       <button onClick={() => handleDelete(exp.id)} className='bg-red-400 hover:bg-red-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs'>Delete</button>
                     </div>
                   </td>
